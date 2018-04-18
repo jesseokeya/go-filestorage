@@ -1,25 +1,17 @@
-package main
+package filestorage
 
-type Users struct {
-	id        int
-	firstName string
-	lastName  string
-	email     string
-	password  string
-	address   string
+// Cache holds logic for file_storage interaction
+type Cache struct {
+	store store
 }
 
-func main() {
+// Connect connects o the file_storage database instance
+func Connect() Cache {
+	path := "database/file_storage.json"
+	return Cache{store: store{"", path}}
+}
 
-	schema := Users{
-		id:        21334130,
-		firstName: "Jesse",
-		lastName:  "Okeya",
-		password:  "encrypted",
-		email:     "Jesseokeya@gmail.com",
-		address:   "2550 Cotters Crescent, K1V8Y6",
-	}
-
-	s := store{"./database/file_storage.json", "App Users"}
-	s.writeToFile(schema)
+// Name the database any given name you wish
+func (c *Cache) Name(db string) {
+	c.store.Name = db
 }

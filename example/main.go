@@ -1,7 +1,5 @@
 package main
 
-import filestorage "github.com/jesseokeya/go-filestorage"
-
 type Users struct {
 	id        int
 	firstName string
@@ -13,15 +11,15 @@ type Users struct {
 
 func main() {
 
-	schema := Users{
-		id:        21334130,
-		firstName: "Jesse",
-		lastName:  "Okeya",
-		password:  "encrypted",
-		email:     "Jesseokeya@gmail.com",
-		address:   "2550 Cotters Crescent, K1V8Y6",
-	}
+	// schema := Users{
+	// 	id:        21334130,
+	// 	firstName: "Jesse",
+	// 	lastName:  "Okeya",
+	// 	password:  "encrypted",
+	// 	email:     "Jesseokeya@gmail.com",
+	// 	address:   "2550 Cotters Crescent, K1V8Y6",
+	// }
 
-	database := filestorage.Initialize(Users, "App Users")
+	//database := filestorage.Initialize("App Users")
 
 }
