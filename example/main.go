@@ -1,9 +1,5 @@
 package main
 
-import (
-	filestorage "github.com/jesseokeya/go-filestorage"
-)
-
 type Users struct {
 	id        int
 	firstName string
@@ -14,7 +10,7 @@ type Users struct {
 }
 
 func main() {
-	databaseName := "myAppUsers"
+
 	schema := Users{
 		id:        21334130,
 		firstName: "Jesse",
@@ -24,8 +20,5 @@ func main() {
 		address:   "2550 Cotters Crescent, K1V8Y6",
 	}
 
-	dbInstance := filestorage.Store{
-		databaseName,
-		schema,
-	}
+	database := Initialize(schema, "App Users")
 }

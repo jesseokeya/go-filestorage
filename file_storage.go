@@ -9,11 +9,10 @@ type Store struct {
 }
 
 // Initialize connects to the database but name and scheme is required
-func (s *Store) Initialize(i interface{}, n string) {
-	s.Schema = i
-	s.Name = n
+func Initialize(i interface{}, n string) Store {
 	path := "./database/file_storage.json"
 	CreateFileStore(path)
+	return Store{i, n}
 }
 
 // CreateFileStore creates a json file where data would be stored in memory
