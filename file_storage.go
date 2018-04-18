@@ -4,14 +4,14 @@ import "os"
 
 // Store tracks all needed data structures for database instance
 type Store struct {
-	schema interface{}
-	name   string
+	Schema interface{}
+	Name   string
 }
 
 // Initialize connects to the database but name and scheme is required
 func (s *Store) Initialize(i interface{}, n string) {
-	s.schema = i
-	s.name = n
+	s.Schema = i
+	s.Name = n
 	path := "./database/file_storage.json"
 	CreateFileStore(path)
 }
