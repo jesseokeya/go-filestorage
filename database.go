@@ -23,8 +23,12 @@ func (s *store) init() {
 func (s *store) createFileStore() {
 	newpath := filepath.Join(".", "database")
 	os.MkdirAll(newpath, os.ModePerm)
+
 	_, err := os.Stat(s.Path)
 	if os.IsNotExist(err) {
+		if len(s.Path) == 0 {
+			s.Path = "database/storage.json"
+		}
 		file, err := os.Create(s.Path)
 		handleError(err)
 		emptyData := make([]interface{}, 0)

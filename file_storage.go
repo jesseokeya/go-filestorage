@@ -7,7 +7,7 @@ type Cache struct {
 
 // Connect connects o the file_storage database instance
 func Connect() Cache {
-	path := "database/file_storage.json"
+	path := "database/storage.json"
 	c := Cache{store: store{"", path}}
 	c.store.init()
 	return c
@@ -21,4 +21,9 @@ func (c *Cache) Name(db string) {
 // GetPath returns the path to the storage in memory
 func (c *Cache) GetPath() string {
 	return c.store.Path
+}
+
+// GetName returns the database name
+func (c *Cache) GetName() string {
+	return c.store.Name
 }
