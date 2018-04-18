@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os"
+	"path/filepath"
 )
 
 // Store tracks all needed data structures for database instance
@@ -20,6 +21,8 @@ func (s *store) init() {
 
 // createFileStore creates a json file where data would be stored in memory
 func (s *store) createFileStore() {
+	newpath := filepath.Join(".", "database")
+	os.MkdirAll(newpath, os.ModePerm)
 	_, err := os.Stat(s.Path)
 	if os.IsNotExist(err) {
 		file, err := os.Create(s.Path)
