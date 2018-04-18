@@ -8,7 +8,9 @@ type Cache struct {
 // Connect connects o the file_storage database instance
 func Connect() Cache {
 	path := "database/file_storage.json"
-	return Cache{store: store{"", path}}
+	c := Cache{store: store{"", path}}
+	c.store.init()
+	return c
 }
 
 // Name the database any given name you wish

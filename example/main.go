@@ -29,5 +29,5 @@ func main() {
 	database := filestorage.Connect()
 	database.Name("Jesse's Users")
 
-	fmt.Println(database)
+	fmt.Println(database.GetPath())
 }
