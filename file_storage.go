@@ -15,3 +15,8 @@ func Connect() Cache {
 func (c *Cache) Name(db string) {
 	c.store.Name = db
 }
+
+// GetPath returns the path to the storage in memory
+func (c *Cache) GetPath() string {
+	return c.store.Path
+}
