@@ -1,33 +1,25 @@
-package filestorage
+package main
 
-import "os"
-
-// Store tracks all needed data structures for database instance
-type Store struct {
-	Schema interface{}
-	Name   string
+type Users struct {
+	id        int
+	firstName string
+	lastName  string
+	email     string
+	password  string
+	address   string
 }
 
-// Initialize connects to the database but name and scheme is required
-func Initialize(i interface{}, n string) Store {
-	path := "./database/file_storage.json"
-	CreateFileStore(path)
-	return Store{i, n}
-}
+func main() {
 
-// CreateFileStore creates a json file where data would be stored in memory
-func CreateFileStore(path string) {
-	_, err := os.Stat(path)
-	if os.IsNotExist(err) {
-		file, err := os.Create(path)
-		HandleError(err)
-		defer file.Close()
+	schema := Users{
+		id:        21334130,
+		firstName: "Jesse",
+		lastName:  "Okeya",
+		password:  "encrypted",
+		email:     "Jesseokeya@gmail.com",
+		address:   "2550 Cotters Crescent, K1V8Y6",
 	}
-}
 
-// HandleError handles error that come up during runtime
-func HandleError(err error) {
-	if err != nil {
-		panic(err)
-	}
+	s := store{"./database/file_storage.json", "App Users"}
+	s.writeToFile(schema)
 }
