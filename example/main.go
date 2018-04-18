@@ -1,5 +1,9 @@
 package main
 
+import (
+	"fmt"
+)
+
 // schema struct is a schema for app users
 type schema struct {
 	ID        int    `json:"_id,omitempty"`
@@ -11,16 +15,19 @@ type schema struct {
 }
 
 func main() {
-	// user := schema{
-	// 	ID:        21334131,
-	// 	FirstName: "Jesse",
-	// 	LastName:  "Okeya",
-	// 	Password:  "encrypted",
-	// 	Email:     "Jesseokeya@gmail.com",
-	// 	Address:   "2550 Cotters Crescent, K1V8Y6",
-	// }
+	user := schema{
+		ID:        21334131,
+		FirstName: "Jesse",
+		LastName:  "Okeya",
+		Password:  "encrypted",
+		Email:     "Jesseokeya@gmail.com",
+		Address:   "2550 Cotters Crescent, K1V8Y6",
+	}
 
+	//database := filestorage.Connect()
 	database := Connect()
 	database.Name("Jesse's Users")
-
+	fmt.Println(database.GetPath())
+	database.InsertOne(user)
+	database.FindAll()
 }

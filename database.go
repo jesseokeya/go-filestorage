@@ -1,8 +1,7 @@
-package filestorage
+package main
 
 import (
 	"encoding/json"
-	"fmt"
 	"io/ioutil"
 	"os"
 	"path/filepath"
@@ -21,10 +20,13 @@ func (s *store) init() {
 
 // createFileStore creates a json file where data would be stored in memory
 func (s *store) createFileStore() {
-	newpath := filepath.Join(".", "database")
-	os.MkdirAll(newpath, os.ModePerm)
-
-	_, err := os.Stat(s.Path)
+	dir := "database"
+	_, err := os.Stat(dir)
+	if os.IsNotExist(err) {
+		newpath := filepath.Join(".", "database")
+		os.MkdirAll(newpath, os.ModePerm)
+	}
+	_, err = os.Stat(s.Path)
 	if os.IsNotExist(err) {
 		if len(s.Path) == 0 {
 			s.Path = "database/storage.json"
@@ -44,6 +46,7 @@ func (s *store) createFileStore() {
 
 // writeToFile writes the data to be stored in a location in memory
 func (s *store) writeToFile(p interface{}) {
+	s.Path = "database" + "/storage.json"
 	if len(s.readFromFile()) == 0 {
 		result := make([]interface{}, 0)
 		result = append(result, p)
@@ -58,7 +61,6 @@ func (s *store) writeToFile(p interface{}) {
 
 		result := make([]interface{}, 0)
 		for _, data := range previous {
-			fmt.Println(data)
 			result = append(result, data)
 		}
 		result = append(result, p)
@@ -74,6 +76,7 @@ func (s *store) writeToFile(p interface{}) {
 // GetAll returns a byte array of all data from the file
 func (s *store) readFromFile() []interface{} {
 	var result []interface{}
+	s.Path = "database" + "/storage.json"
 	data, err := ioutil.ReadFile(s.Path)
 	if err != nil {
 		handleError(err)
