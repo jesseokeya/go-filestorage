@@ -25,7 +25,7 @@ func main() {
 	}
 
 	//database := filestorage.Connect()
-	database := Connect()
+	database := filestorage.Connect()
 	database.Name("Jesse's Users")
 	fmt.Println(database.GetPath())
 	database.InsertOne(user)
