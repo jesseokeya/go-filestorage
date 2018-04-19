@@ -15,19 +15,36 @@ type schema struct {
 }
 
 func main() {
-	user := schema{
-		ID:        21334131,
-		FirstName: "Jesse",
-		LastName:  "Okeya",
-		Password:  "encrypted",
-		Email:     "Jesseokeya@gmail.com",
-		Address:   "2550 Cotters Crescent, K1V8Y6",
+	users := []schema{
+		{ID: 064245,
+			FirstName: "Peter",
+			LastName:  "Smith",
+			Password:  "encrypted",
+			Email:     "peter_smith@gmail.com",
+			Address:   "2550 New Brick Avenue, Washington Dc",
+		},
+		{ID: 167215,
+			FirstName: "John",
+			LastName:  "Mendez",
+			Password:  "encrypted",
+			Email:     "johnmendez@yahoo.com",
+			Address:   "344 Smithinson Road, Manitoba",
+		},
+		{ID: 31290,
+			FirstName: "Wang",
+			LastName:  "Lee",
+			Password:  "encrypted",
+			Email:     "wang_lee@gmail.com",
+			Address:   "440 Handerson Avenue, Houston",
+		},
 	}
 
 	//database := filestorage.Connect()
-	database := filestorage.Connect()
+	database := Connect()
 	database.Name("Jesse's Users")
 	fmt.Println(database.GetPath())
-	database.InsertOne(user)
+	for _, item := range users {
+		database.InsertOne(item)
+	}
 	database.FindAll()
 }

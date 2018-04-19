@@ -11,13 +11,14 @@ type Cache struct {
 
 // Connect connects o the file_storage database instance
 func Connect() Cache {
-	path := "database/storage.json"
-	if _, err := os.Stat(path); os.IsNotExist(err) {
-		c := Cache{store: store{"", path}}
+	c := Cache{}
+	c.store.Name = ""
+	c.store.Path = "database/storage.json"
+	if _, err := os.Stat(c.store.Path); os.IsNotExist(err) {
 		c.store.init()
 		return c
 	}
-	return Cache{store: store{"", path}}
+	return c
 }
 
 // Name the database any given name you wish
@@ -40,17 +41,6 @@ func (c *Cache) FindAll() []interface{} {
 	return c.store.readFromFile()
 }
 
-// Insert adds an array of new object interface to the database
-func (c *Cache) Insert(p ...interface{}) error {
-	allData := c.store.readFromFile()
-	for _, obj := range p {
-		if !c.contains(obj, allData) {
-			c.store.writeToFile(obj)
-		}
-	}
-	return nil
-}
-
 // InsertOne adds a new object interface to the database
 func (c *Cache) InsertOne(p interface{}) error {
 	allData := c.store.readFromFile()
@@ -60,6 +50,7 @@ func (c *Cache) InsertOne(p interface{}) error {
 	return nil
 }
 
+// contains ensures integrity of the database and eliminates repeteation
 func (c *Cache) contains(i interface{}, list ...interface{}) bool {
 	for _, item := range list {
 		if item == i {
