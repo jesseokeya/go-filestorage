@@ -1,9 +1,13 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
+	"net/http"
 
+	"github.com/gorilla/mux"
 	filestorage "github.com/jesseokeya/go-filestorage"
+	httplogger "github.com/jesseokeya/go-httplogger"
 )
 
 // schema struct is a schema for app users
@@ -15,6 +19,10 @@ type schema struct {
 	Password  string `json:"password,omitempty"`
 	Address   string `json:"address,omitempty"`
 }
+
+var (
+	database = filestorage.Connect()
+)
 
 func main() {
 	users := []schema{
@@ -40,12 +48,24 @@ func main() {
 			Address:   "440 Handerson Avenue, Houston",
 		},
 	}
-
-	database := filestorage.Connect()
-	database.Name("Jesse's Users")
+	database.Name("App Users")
 	fmt.Println(database.GetPath())
+	fmt.Println(database.GetName())
 	for _, item := range users {
 		database.InsertOne(item)
 	}
-	database.FindAll()
+	r := mux.NewRouter()
+	r.HandleFunc("/", HomeHandler)
+	http.Handle("/", r)
+	fmt.Println("Server running on port *" + "8000")
+	http.ListenAndServe(":8000", httplogger.Golog(r))
+}
+
+// HomeHandler handle home route
+func HomeHandler(w http.ResponseWriter, r *http.Request) {
+	data, err := json.Marshal(database.FindAll())
+	if err != nil {
+		panic(err)
+	}
+	w.Write(data)
 }
