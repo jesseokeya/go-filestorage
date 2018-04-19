@@ -54,7 +54,7 @@ func main() {
 	for _, item := range users {
 		database.InsertOne(item)
 	}
-	database.FindAll()
+	fmt.Println(database.FindAll())
 }
 ```
 
