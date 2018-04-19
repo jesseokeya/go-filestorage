@@ -2,6 +2,8 @@ package main
 
 import (
 	"fmt"
+
+	filestorage "github.com/jesseokeya/go-filestorage"
 )
 
 // schema struct is a schema for app users
@@ -39,8 +41,7 @@ func main() {
 		},
 	}
 
-	//database := filestorage.Connect()
-	database := Connect()
+	database := filestorage.Connect()
 	database.Name("Jesse's Users")
 	fmt.Println(database.GetPath())
 	for _, item := range users {
