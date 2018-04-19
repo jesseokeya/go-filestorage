@@ -49,12 +49,12 @@ func main() {
 	}
 
 	database := filestorage.Connect()
-	database.Name("Jesse's Users")
+	database.Name("App Users")
 	fmt.Println(database.GetPath())
 	for _, item := range users {
 		database.InsertOne(item)
 	}
-	database.FindAll()
+	fmt.Println(database.FindAll())
 }
 ```
 
