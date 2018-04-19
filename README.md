@@ -59,4 +59,4 @@ func main() {
 ```
 
 ## Editor Snippet
-
+<img src="https://github.com/jesseokeya/go-filestorage/blob/master/image/editor.png" width="500" height="500">
