@@ -135,4 +135,4 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 ```
 
 ## Editor Snippet
-<img src="https://github.com/jesseokeya/go-filestorage/blob/master/image/editor.png" width="500" height="500">
+<img src="https://github.com/jesseokeya/go-filestorage/blob/master/image/preview.png?raw=true" width="500" height="500">
